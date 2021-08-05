@@ -6,6 +6,13 @@ import pygame
 from datetime import datetime
 
 
+def do_gif(frames):
+
+    import imageio
+    imageio.mimsave('./movie.gif', frames, fps=60)
+  
+
+
 
 h, w = 1000, 1000
 border = 5
@@ -25,17 +32,17 @@ basicfont = pygame.font.SysFont(None, 32)
 # Clear screen to white before drawing
 screen.fill((255, 255, 255))
 
+
 while not done:
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
 
         # Convert to a surface and splat onto screen offset by border width and height
     surface = pygame.surfarray.make_surface(am.display())
-
     surface = pygame.transform.scale(surface, (1000, 1000))
     screen.blit(surface, (border, border))
-
 
     pygame.display.flip()
     clock.tick(60)
@@ -45,4 +52,7 @@ while not done:
 
     am.try_resol()
 
+
+
     print((datetime.now() - now), "------------------")
+

@@ -10,24 +10,19 @@ class ambient:
         self.solution = np.zeros((150, 150))
         self.create_world()
 
-
     def create_world(self):
-        self.poblation = [uo.Individuo(i) for i in range(100)]
+        self.poblation = [uo.Individuo(i, self) for i in range(100)]
+
+    def get_world(self):
+        return self.solution
 
     def display(self):
-        self.solution = np.zeros((150, 150))
-        for indivi in self.poblation:
-            self.solution = (self.solution + indivi.information) % 255
-
         return self.solution
 
 
     def try_resol(self):
-        self.capacity = [np.where((self.problem - individ.get_information() > self.dificulty), 1, 0)
-                         for individ in self.poblation]
+        self.capacity = np.random.rand(150, 150)
 
-        self.capacity_evaluation = [capacity_.mean() for capacity_ in self.capacity]
-
-        for cap, indivi in zip(self.capacity, self.poblation):
-            indivi.fit(cap)
+        for indivi in self.poblation:
+            indivi.fit(self.capacity)
 
